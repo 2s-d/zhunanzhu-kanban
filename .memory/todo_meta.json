@@ -1,0 +1,76 @@
+{
+  "todos": {
+    "Coordinator": {
+      "1": {
+        "id": "1",
+        "content": "设计并开发专注APP数据大屏看板",
+        "details": "基于Flutter专注学习应用的数据结构，开发包含全局概览、项目分析、时间趋势、奖励分析、学习习惯等5个核心模块的数据可视化看板",
+        "status": "in_progress",
+        "priority": "high"
+      },
+      "1.1": {
+        "id": "1.1",
+        "content": "创建React项目基础架构",
+        "details": "1. 初始化React + TypeScript项目\n2. 集成Ant Design UI框架\n3. 配置ECharts图表库\n4. 设置项目目录结构",
+        "status": "pending",
+        "priority": "high"
+      },
+      "1.2": {
+        "id": "1.2",
+        "content": "实现数据模型和类型定义",
+        "details": "1. 创建TypeScript接口对应Flutter数据结构\n2. 实现数据处理和转换逻辑\n3. 生成模拟数据用于开发测试\n4. 创建数据读取和验证工具",
+        "status": "pending",
+        "priority": "high"
+      },
+      "1.3": {
+        "id": "1.3",
+        "content": "开发全局概览仪表板模块",
+        "details": "1. 总运数大数字展示（环形进度条）\n2. 项目总数卡片\n3. 总学习时长统计\n4. 连续签到天数\n5. 当前运势状态显示",
+        "status": "pending",
+        "priority": "high"
+      },
+      "1.4": {
+        "id": "1.4",
+        "content": "开发项目分析模块",
+        "details": "1. 项目列表表格（可排序、筛选）\n2. 项目学习时长对比柱状图\n3. 项目运获得对比图\n4. 项目活跃度热力图\n5. 项目创建时间趋势",
+        "status": "pending",
+        "priority": "high"
+      },
+      "1.5": {
+        "id": "1.5",
+        "content": "开发时间趋势分析模块",
+        "details": "1. 每日学习时长趋势线图\n2. 每周学习统计柱状图\n3. 每月学习进度对比\n4. 学习时段分布饼图\n5. 工作日vs周末学习对比",
+        "status": "pending",
+        "priority": "high"
+      },
+      "1.6": {
+        "id": "1.6",
+        "content": "开发奖励来源分析模块",
+        "details": "1. 奖励来源分布饼图\n2. 运获得趋势图\n3. 休息次数统计\n4. 奖励配置使用情况雷达图",
+        "status": "pending",
+        "priority": "high"
+      },
+      "1.7": {
+        "id": "1.7",
+        "content": "开发学习习惯分析模块",
+        "details": "1. 学习会话时长分布直方图\n2. 休息频率趋势\n3. 学习模式偏好对比\n4. 一周学习模式热力图\n5. 学习效率评分",
+        "status": "pending",
+        "priority": "high"
+      },
+      "1.8": {
+        "id": "1.8",
+        "content": "实现响应式布局和交互功能",
+        "details": "1. 适配大屏、桌面、平板、手机\n2. 时间范围筛选器\n3. 项目筛选和排序\n4. 数据导出功能\n5. 实时数据更新机制",
+        "status": "pending",
+        "priority": "medium"
+      },
+      "1.9": {
+        "id": "1.9",
+        "content": "部署看板应用到云端",
+        "details": "1. 构建生产版本\n2. 部署到云服务\n3. 配置访问地址\n4. 测试所有功能",
+        "status": "pending",
+        "priority": "medium"
+      }
+    }
+  }
+}
