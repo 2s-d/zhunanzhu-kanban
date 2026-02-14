@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { Layout, Upload, Button, message, Tabs, Dropdown, Space, ConfigProvider } from 'antd';
 import type { MenuProps } from 'antd';
-import { UploadOutlined, DownloadOutlined, DashboardOutlined, ProjectOutlined, LineChartOutlined, GiftOutlined, HeartOutlined, BookOutlined } from '@ant-design/icons';
+import { UploadOutlined, DownloadOutlined, DashboardOutlined, ProjectOutlined, LineChartOutlined, GiftOutlined, HeartOutlined, BookOutlined, CloudDownloadOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import { store, RootState } from './store';
@@ -15,6 +15,7 @@ import ProjectAnalysis from './components/ProjectAnalysis';
 import TimeTrends from './components/TimeTrends';
 import RewardAnalysis from './components/RewardAnalysis';
 import StudyHabits from './components/StudyHabits';
+import OnlineGetModal from './components/OnlineGetModal';
 import './App.css';
 import './App.mobile.css';
 
@@ -25,6 +26,13 @@ const DashboardContent: React.FC = () => {
   const appData = useSelector((state: RootState) => state.appData.data);
   const [activeTab, setActiveTab] = useState('overview');
   const [themeColor, setThemeColor] = useState('#1890ff');
+  const [onlineModalOpen, setOnlineModalOpen] = useState(false);
+
+  // 处理在线获取数据成功
+  const handleOnlineSuccess = (data: AppData) => {
+    dispatch(setAppData(data));
+    message.success('在线数据获取成功！');
+  };
 
   // 加载示例数据
   useEffect(() => {
@@ -195,6 +203,13 @@ const DashboardContent: React.FC = () => {
             </span>
           </div>
           <Space>
+            <Button 
+              type="primary" 
+              icon={<CloudDownloadOutlined />}
+              onClick={() => setOnlineModalOpen(true)}
+            >
+              在线获取
+            </Button>
             <Upload {...uploadProps}>
               <Button type="primary" icon={<UploadOutlined />}>
                 导入数据
@@ -258,6 +273,11 @@ const DashboardContent: React.FC = () => {
             style={{ background: '#fff', padding: '16px', borderRadius: '8px' }}
           />
         </Content>
+        <OnlineGetModal
+          open={onlineModalOpen}
+          onClose={() => setOnlineModalOpen(false)}
+          onSuccess={handleOnlineSuccess}
+        />
       </Layout>
     </ConfigProvider>
   );
