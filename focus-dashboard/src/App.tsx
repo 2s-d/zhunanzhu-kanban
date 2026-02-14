@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Provider, useDispatch } from 'react-redux';
-import { Layout, Upload, Button, message, Tabs } from 'antd';
-import { UploadOutlined, DashboardOutlined, ProjectOutlined, LineChartOutlined, GiftOutlined, HeartOutlined } from '@ant-design/icons';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import { Layout, Upload, Button, message, Tabs, Dropdown, Space, ConfigProvider } from 'antd';
+import type { MenuProps } from 'antd';
+import { UploadOutlined, DownloadOutlined, DashboardOutlined, ProjectOutlined, LineChartOutlined, GiftOutlined, HeartOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
-import { store } from './store';
+import zhCN from 'antd/locale/zh_CN';
+import { store, RootState } from './store';
 import { setAppData, setLoading, setError } from './store/appDataSlice';
 import { AppData } from './types';
+import { exportToExcel, exportToCSV, exportToPDF } from './utils/exportData';
+import { colorFromFlutterValue } from './utils/colorUtils';
 import GlobalOverview from './components/GlobalOverview';
 import ProjectAnalysis from './components/ProjectAnalysis';
 import TimeTrends from './components/TimeTrends';
@@ -17,7 +21,9 @@ const { Header, Content } = Layout;
 
 const DashboardContent: React.FC = () => {
   const dispatch = useDispatch();
+  const appData = useSelector((state: RootState) => state.appData.data);
   const [activeTab, setActiveTab] = useState('overview');
+  const [themeColor, setThemeColor] = useState('#1890ff');
 
   // 加载示例数据
   useEffect(() => {
@@ -39,6 +45,54 @@ const DashboardContent: React.FC = () => {
 
     loadSampleData();
   }, [dispatch]);
+
+  // 根据Flutter的themeSeedColorValue更新主题色
+  useEffect(() => {
+    if (appData?.themeSeedColorValue) {
+      const color = colorFromFlutterValue(appData.themeSeedColorValue);
+      setThemeColor(color);
+    }
+  }, [appData?.themeSeedColorValue]);
+
+  // 数据导出菜单项
+  const exportMenuItems: MenuProps['items'] = [
+    {
+      key: 'excel',
+      label: '导出为 Excel',
+      onClick: () => {
+        try {
+          exportToExcel(appData);
+          message.success('Excel 文件导出成功');
+        } catch (error: any) {
+          message.error(error.message || '导出失败');
+        }
+      },
+    },
+    {
+      key: 'csv',
+      label: '导出为 CSV',
+      onClick: () => {
+        try {
+          exportToCSV(appData);
+          message.success('CSV 文件导出成功');
+        } catch (error: any) {
+          message.error(error.message || '导出失败');
+        }
+      },
+    },
+    {
+      key: 'pdf',
+      label: '导出为 PDF',
+      onClick: () => {
+        try {
+          exportToPDF(appData);
+          message.success('PDF 文件导出成功');
+        } catch (error: any) {
+          message.error(error.message || '导出失败');
+        }
+      },
+    },
+  ];
 
   // 文件上传处理
   const uploadProps: Partial<UploadProps> = {
@@ -122,27 +176,86 @@ const DashboardContent: React.FC = () => {
   ];
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ background: '#001529', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ color: '#fff', fontSize: '20px', fontWeight: 'bold' }}>
-          专注APP数据看板
-        </div>
-        <Upload {...uploadProps}>
-          <Button type="primary" icon={<UploadOutlined />}>
-            导入数据
-          </Button>
-        </Upload>
-      </Header>
-      <Content style={{ padding: '24px' }}>
-        <Tabs
-          activeKey={activeTab}
-          onChange={setActiveTab}
-          items={tabItems}
-          size="large"
-          style={{ background: '#fff', padding: '16px', borderRadius: '8px' }}
-        />
-      </Content>
-    </Layout>
+    <ConfigProvider
+      locale={zhCN}
+      theme={{
+        token: {
+          colorPrimary: themeColor,
+          borderRadius: 8,
+        },
+      }}
+    >
+      <Layout style={{ minHeight: '100vh' }}>
+        <Header style={{ background: '#001529', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ color: '#fff', fontSize: '20px', fontWeight: 'bold' }}>
+            专注APP数据看板
+          </div>
+          <Space>
+            <Upload {...uploadProps}>
+              <Button type="primary" icon={<UploadOutlined />}>
+                导入数据
+              </Button>
+            </Upload>
+            <Dropdown 
+              menu={{ 
+                items: [
+                  {
+                    key: 'excel',
+                    label: '导出为 Excel',
+                    onClick: () => {
+                      try {
+                        exportToExcel(appData);
+                        message.success('Excel 文件导出成功');
+                      } catch (error: any) {
+                        message.error(error.message || '导出失败');
+                      }
+                    },
+                  },
+                  {
+                    key: 'csv',
+                    label: '导出为 CSV',
+                    onClick: () => {
+                      try {
+                        exportToCSV(appData);
+                        message.success('CSV 文件导出成功');
+                      } catch (error: any) {
+                        message.error(error.message || '导出失败');
+                      }
+                    },
+                  },
+                  {
+                    key: 'pdf',
+                    label: '导出为 PDF',
+                    onClick: () => {
+                      try {
+                        exportToPDF(appData);
+                        message.success('PDF 文件导出成功');
+                      } catch (error: any) {
+                        message.error(error.message || '导出失败');
+                      }
+                    },
+                  },
+                ]
+              }} 
+              placement="bottomRight"
+            >
+              <Button icon={<DownloadOutlined />}>
+                导出数据
+              </Button>
+            </Dropdown>
+          </Space>
+        </Header>
+        <Content style={{ padding: '24px' }}>
+          <Tabs
+            activeKey={activeTab}
+            onChange={setActiveTab}
+            items={tabItems}
+            size="large"
+            style={{ background: '#fff', padding: '16px', borderRadius: '8px' }}
+          />
+        </Content>
+      </Layout>
+    </ConfigProvider>
   );
 };
 
