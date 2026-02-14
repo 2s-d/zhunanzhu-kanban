@@ -1,3 +1,14 @@
+---
+AIGC:
+    ContentProducer: Minimax Agent AI
+    ContentPropagator: Minimax Agent AI
+    Label: AIGC
+    ProduceID: "00000000000000000000000000000000"
+    PropagateID: "00000000000000000000000000000000"
+    ReservedCode1: 304502204afd3c5342463a3159e61dde39e146777b3a0e600006dc5f416a75eb5d0ec1fc022100d2a959fe081fef17609aa92207eed27616094ace2575928d6da74d2daf7f15bd
+    ReservedCode2: 304402206f8a4b2c01c7b4abf8044113186df51b51a36c983330562f3188791dc7575b18022068e7a40433a7b1befcab0e1bb758190b7ddb55fdccd70fe69c17176130dde4f2
+---
+
 # 专注APP数据大屏看板开发进度
 
 ## 项目概述
