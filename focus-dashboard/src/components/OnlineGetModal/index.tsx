@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Modal, Form, Input, Button, message, Space } from 'antd';
 import { CloudDownloadOutlined, CheckCircleOutlined } from '@ant-design/icons';
-import { checkPhoneStatus, fetchDataFromServer } from '../utils/onlineData';
-import { AppData } from '../types';
+import { checkPhoneStatus, fetchDataFromServer } from '../../utils/onlineData';
+import { AppData } from '../../types';
 
 interface OnlineGetModalProps {
   open: boolean;

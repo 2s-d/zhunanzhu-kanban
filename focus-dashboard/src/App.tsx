@@ -203,13 +203,20 @@ const DashboardContent: React.FC = () => {
             </span>
           </div>
           <Space>
-            <Button 
-              type="primary" 
-              icon={<CloudDownloadOutlined />}
+            <button 
+              style={{ 
+                background: '#1890ff', 
+                color: 'white', 
+                border: 'none', 
+                padding: '4px 15px', 
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontSize: '14px'
+              }}
               onClick={() => setOnlineModalOpen(true)}
             >
               在线获取
-            </Button>
+            </button>
             <Upload {...uploadProps}>
               <Button type="primary" icon={<UploadOutlined />}>
                 导入数据
