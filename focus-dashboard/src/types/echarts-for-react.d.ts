@@ -1,9 +1,8 @@
 declare module 'echarts-for-react' {
-  import { CSSProperties } from 'react';
-  import { EChartsOption } from 'echarts';
+  import { CSSProperties, Component } from 'react';
 
   export interface ReactEChartsProps {
-    option: EChartsOption;
+    option: any;
     style?: CSSProperties;
     opts?: any;
     onEvents?: any;
@@ -13,5 +12,5 @@ declare module 'echarts-for-react' {
     onChartReady?: (instance: any) => void;
   }
 
-  export default class ReactECharts extends React.Component<ReactEChartsProps> {}
+  export default class ReactECharts extends Component<ReactEChartsProps> {}
 }
