@@ -275,7 +275,7 @@ const DashboardContent: React.FC = () => {
         </Content>
         <OnlineGetModal
           open={onlineModalOpen}
-          onClose={() => setOnlineModalOpen(false)}
+          onOpenChange={(open) => setOnlineModalOpen(open)}
           onSuccess={handleOnlineSuccess}
         />
       </Layout>
