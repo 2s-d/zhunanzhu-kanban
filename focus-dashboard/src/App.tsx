@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { Layout, Upload, Button, message, Tabs, Dropdown, Space, ConfigProvider } from 'antd';
 import type { MenuProps } from 'antd';
-import { UploadOutlined, DownloadOutlined, DashboardOutlined, ProjectOutlined, LineChartOutlined, GiftOutlined, HeartOutlined } from '@ant-design/icons';
+import { UploadOutlined, DownloadOutlined, DashboardOutlined, ProjectOutlined, LineChartOutlined, GiftOutlined, HeartOutlined, BookOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import { store, RootState } from './store';
@@ -188,8 +188,11 @@ const DashboardContent: React.FC = () => {
     >
       <Layout style={{ minHeight: '100vh' }}>
         <Header style={{ background: '#001529', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ color: '#fff', fontSize: '20px', fontWeight: 'bold' }}>
-            专注APP数据看板
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <BookOutlined style={{ color: '#fff', fontSize: '24px' }} />
+            <span style={{ color: '#fff', fontSize: '20px', fontWeight: 'bold' }}>
+              专注APP数据看板
+            </span>
           </div>
           <Space>
             <Upload {...uploadProps}>

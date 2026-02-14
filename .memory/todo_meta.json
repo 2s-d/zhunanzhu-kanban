@@ -68,7 +68,7 @@
         "id": "1.9",
         "content": "部署看板应用到云端",
         "details": "1. 构建生产版本\n2. 部署到云服务\n3. 配置访问地址\n4. 测试所有功能",
-        "status": "pending",
+        "status": "completed",
         "priority": "medium"
       }
     }
