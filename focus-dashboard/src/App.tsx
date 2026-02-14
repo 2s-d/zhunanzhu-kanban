@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { Layout, Upload, Button, message, Tabs, Dropdown, Space, ConfigProvider } from 'antd';
 import type { MenuProps } from 'antd';
-import { UploadOutlined, DownloadOutlined, DashboardOutlined, ProjectOutlined, LineChartOutlined, GiftOutlined, HeartOutlined, BookOutlined, CloudDownloadOutlined } from '@ant-design/icons';
+import { UploadOutlined, DownloadOutlined, DashboardOutlined, ProjectOutlined, LineChartOutlined, GiftOutlined, HeartOutlined, BookOutlined, CloudDownloadOutlined, SyncOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import { store, RootState } from './store';
@@ -203,20 +203,46 @@ const DashboardContent: React.FC = () => {
             </span>
           </div>
           <Space>
-            <button 
-              style={{ 
-                background: '#1890ff', 
-                color: 'white', 
-                border: 'none', 
-                padding: '4px 15px', 
-                borderRadius: '6px',
-                cursor: 'pointer',
-                fontSize: '14px'
-              }}
-              onClick={() => setOnlineModalOpen(true)}
-            >
-              在线获取
-            </button>
+            {/* 在线获取按钮 - 分栏设计：左边获取信息，右边刷新 */}
+            <div style={{ display: 'flex', alignItems: 'center', background: '#1890ff', borderRadius: '6px', overflow: 'hidden', cursor: 'pointer' }}>
+              {/* 左侧：获取信息 - 触发API获取 */}
+              <div 
+                style={{ 
+                  padding: '4px 12px', 
+                  color: 'white', 
+                  fontSize: '14px',
+                  borderRight: '1px solid rgba(255,255,255,0.3)'
+                }}
+                onClick={() => setOnlineModalOpen(true)}
+              >
+                获取信息
+              </div>
+              {/* 右侧：刷新图标 - 重新加载数据 */}
+              <div 
+                style={{ 
+                  padding: '4px 8px', 
+                  color: 'white',
+                  fontSize: '14px',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+                onClick={() => {
+                  // 刷新当前数据（重新加载示例数据）
+                  dispatch(setLoading(true));
+                  fetch('/data/sample_app_data.json')
+                    .then(res => res.json())
+                    .then(data => {
+                      dispatch(setAppData(data));
+                      message.success('数据已刷新');
+                    })
+                    .catch(() => {
+                      message.error('刷新失败');
+                    });
+                }}
+              >
+                <SyncOutlined spin={false} />
+              </div>
+            </div>
             <Upload {...uploadProps}>
               <Button type="primary" icon={<UploadOutlined />}>
                 导入数据
