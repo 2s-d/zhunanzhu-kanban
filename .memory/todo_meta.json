@@ -12,7 +12,7 @@
         "id": "1.1",
         "content": "创建React项目基础架构",
         "details": "1. 初始化React + TypeScript项目\n2. 集成Ant Design UI框架\n3. 配置ECharts图表库\n4. 设置项目目录结构",
-        "status": "in_progress",
+        "status": "pending",
         "priority": "high"
       },
       "1.2": {
