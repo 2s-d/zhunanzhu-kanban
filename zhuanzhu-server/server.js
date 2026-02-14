@@ -13,8 +13,8 @@ const { WebSocketServer } = require('ws');
 const http = require('http');
 
 // ==================== 配置 ====================
-const HTTP_PORT = 3000;      // HTTP服务器端口（网页请求）
-const WS_PORT = 8080;       // WebSocket端口（手机连接）
+const HTTP_PORT = 3007;      // HTTP服务器端口（网页请求）
+const WS_PORT = 8080;        // WebSocket端口（手机连接）
 
 // ==================== 数据存储 ====================
 // 存储所有连接的手机
@@ -264,6 +264,10 @@ process.on('SIGINT', () => {
 console.log('\n========================================');
 console.log('   专注APP数据中转服务器 - 启动完成');
 console.log('========================================');
-console.log(`HTTP服务器: http://108.160.131.86:${HTTP_PORT}`);
-console.log(`WebSocket: ws://108.160.131.86:${WS_PORT}`);
+console.log(`HTTP服务器: http://0.0.0.0:${HTTP_PORT}`);
+console.log(`WebSocket: ws://0.0.0.0:${WS_PORT}`);
+console.log('');
+console.log('访问地址:');
+console.log(`  - HTTP: http://108.160.131.86:${HTTP_PORT}`);
+console.log(`  - WS:   ws://108.160.131.86:${WS_PORT}`);
 console.log('========================================\n');
