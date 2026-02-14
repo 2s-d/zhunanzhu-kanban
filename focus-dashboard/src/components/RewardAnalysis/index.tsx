@@ -3,11 +3,13 @@ import { Card, Row, Col, Statistic } from 'antd';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { analyzeRewardSources, formatPoints } from '../../utils/dataProcessor';
+import { useChartHeight } from '../../hooks/use-mobile';
 import ReactECharts from 'echarts-for-react';
 
 const RewardAnalysis: React.FC = () => {
   const appData = useSelector((state: RootState) => state.appData.data);
   const rewardSources = useMemo(() => analyzeRewardSources(appData), [appData]);
+  const chartHeight = useChartHeight();
 
   // 计算各类奖励统计
   const stats = useMemo(() => {
@@ -278,12 +280,12 @@ const RewardAnalysis: React.FC = () => {
       <Row gutter={[16, 16]}>
         <Col xs={24} lg={12}>
           <Card>
-            <ReactECharts option={sourceDistributionOption} style={{ height: '400px' }} />
+            <ReactECharts option={sourceDistributionOption} style={{ height: chartHeight }} />
           </Card>
         </Col>
         <Col xs={24} lg={12}>
           <Card>
-            <ReactECharts option={projectRewardOption} style={{ height: '400px' }} />
+            <ReactECharts option={projectRewardOption} style={{ height: chartHeight }} />
           </Card>
         </Col>
       </Row>
@@ -291,7 +293,7 @@ const RewardAnalysis: React.FC = () => {
       <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
         <Col span={24}>
           <Card>
-            <ReactECharts option={rewardConfigOption} style={{ height: '400px' }} />
+            <ReactECharts option={rewardConfigOption} style={{ height: chartHeight }} />
           </Card>
         </Col>
       </Row>

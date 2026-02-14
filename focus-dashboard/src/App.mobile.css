@@ -1,0 +1,322 @@
+/* 专注APP数据看板 - 移动端适配样式 */
+
+@media screen and (max-width: 767px) {
+  /* ===== Header 移动端适配 ===== */
+  .ant-layout-header {
+    padding: 0 12px !important;
+    height: 56px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .ant-layout-header > div:first-child {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+  }
+
+  /* Header 按钮容器 */
+  .ant-layout-header .ant-space {
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+  }
+
+  .ant-layout-header .ant-btn {
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+    height: 32px !important;
+  }
+
+  .ant-layout-header .ant-btn span:not(.anticon) {
+    display: none !important;
+  }
+
+  .ant-layout-header .ant-btn .anticon {
+    font-size: 16px !important;
+    margin: 0 !important;
+  }
+
+  /* ===== Content 移动端适配 ===== */
+  .ant-layout-content {
+    padding: 12px !important;
+  }
+
+  /* ===== Tabs 移动端适配 ===== */
+  .ant-tabs {
+    font-size: 14px !important;
+  }
+
+  .ant-tabs-nav {
+    margin-bottom: 12px !important;
+  }
+
+  .ant-tabs-tab {
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+  }
+
+  .ant-tabs-tab .anticon {
+    margin-right: 4px !important;
+  }
+
+  /* 隐藏Tab文字，仅显示图标（可选） */
+  .ant-tabs-tab span:not(.anticon) {
+    display: inline;
+  }
+
+  /* ===== Card 移动端适配 ===== */
+  .ant-card {
+    margin-bottom: 12px !important;
+  }
+
+  .ant-card-head {
+    padding: 12px 16px !important;
+    min-height: auto !important;
+  }
+
+  .ant-card-head-title {
+    font-size: 15px !important;
+    padding: 0 !important;
+  }
+
+  .ant-card-body {
+    padding: 12px !important;
+  }
+
+  /* ===== Statistic 移动端适配 ===== */
+  .ant-statistic-title {
+    font-size: 12px !important;
+  }
+
+  .ant-statistic-content-value {
+    font-size: 20px !important;
+  }
+
+  .ant-statistic-content-suffix {
+    font-size: 12px !important;
+  }
+
+  /* ===== 表格移动端适配 ===== */
+  .ant-table {
+    font-size: 12px !important;
+  }
+
+  .ant-table-thead > tr > th {
+    padding: 10px 8px !important;
+    font-size: 12px !important;
+  }
+
+  .ant-table-tbody > tr > td {
+    padding: 10px 8px !important;
+    font-size: 12px !important;
+  }
+
+  /* 表格横向滚动提示 */
+  .ant-table-body {
+    overflow-x: auto !important;
+  }
+
+  /* ===== 图表移动端适配 ===== */
+  .echarts-for-react {
+    height: 280px !important;
+  }
+
+  /* ===== Row/Col 移动端适配 ===== */
+  .ant-row {
+    margin-left: -8px !important;
+    margin-right: -8px !important;
+  }
+
+  .ant-col {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  /* ===== Segmented 移动端适配 ===== */
+  .ant-segmented {
+    padding: 2px !important;
+  }
+
+  .ant-segmented-item {
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+  }
+
+  /* ===== Progress 移动端适配 ===== */
+  .ant-progress-text {
+    font-size: 12px !important;
+  }
+
+  /* ===== Tag 移动端适配 ===== */
+  .ant-tag {
+    font-size: 11px !important;
+    padding: 0 6px !important;
+  }
+
+  /* ===== Dropdown 移动端适配 ===== */
+  .ant-dropdown-menu {
+    padding: 4px !important;
+  }
+
+  .ant-dropdown-menu-item {
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+  }
+
+  /* ===== 消息提示 ===== */
+  .ant-message {
+    top: 56px !important;
+  }
+
+  .ant-message-notice-content {
+    max-width: 280px !important;
+    font-size: 13px !important;
+  }
+}
+
+/* ===== 超小屏幕适配（iPhone SE等） ===== */
+@media screen and (max-width: 374px) {
+  .ant-layout-header > div:first-child {
+    font-size: 14px !important;
+    max-width: 100px !important;
+  }
+
+  .ant-tabs-tab {
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+  }
+
+  .ant-statistic-content-value {
+    font-size: 18px !important;
+  }
+
+  .echarts-for-react {
+    height: 240px !important;
+  }
+}
+
+/* ===== 平板适配 ===== */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .echarts-for-react {
+    height: 320px !important;
+  }
+
+  .ant-layout-header > div:first-child {
+    font-size: 18px !important;
+  }
+}
+
+/* ===== 横屏模式适配 ===== */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .ant-layout-header {
+    height: 48px !important;
+    padding: 0 16px !important;
+  }
+
+  .ant-layout-content {
+    padding: 8px !important;
+  }
+
+  .echarts-for-react {
+    height: 220px !important;
+  }
+
+  .ant-card {
+    margin-bottom: 8px !important;
+  }
+
+  .ant-card-head {
+    padding: 8px 12px !important;
+  }
+
+  .ant-card-body {
+    padding: 8px 12px !important;
+  }
+}
+
+/* ===== 暗色主题支持 ===== */
+@media (prefers-color-scheme: dark) {
+  .ant-layout {
+    background: #141414 !important;
+  }
+
+  .ant-layout-header {
+    background: #1f1f1f !important;
+  }
+
+  .ant-layout-content {
+    background: #141414 !important;
+  }
+
+  .ant-card {
+    background: #1f1f1f !important;
+    border-color: #303030 !important;
+  }
+
+  .ant-table {
+    background: #1f1f1f !important;
+  }
+
+  .ant-table-thead > tr > th {
+    background: #262626 !important;
+  }
+
+  .ant-table-tbody > tr:hover > td {
+    background: #262626 !important;
+  }
+}
+
+/* ===== 触摸优化 ===== */
+@media (hover: none) and (pointer: coarse) {
+  /* 触摸设备上增加按钮大小 */
+  .ant-btn {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+
+  .ant-tabs-tab {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+
+  /* 触摸设备上增加表格行高 */
+  .ant-table-tbody > tr > td {
+    padding: 14px 12px !important;
+  }
+
+  /* 触摸设备上增加间距 */
+  .ant-card {
+    margin-bottom: 16px !important;
+  }
+
+  /* 防止触摸时的意外缩放 */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* ===== 打印样式 ===== */
+@media print {
+  .ant-layout-header {
+    display: none !important;
+  }
+
+  .ant-layout-content {
+    padding: 0 !important;
+  }
+
+  .ant-card {
+    break-inside: avoid !important;
+    box-shadow: none !important;
+    border: 1px solid #d9d9d9 !important;
+  }
+
+  .echarts-for-react {
+    height: 300px !important;
+  }
+}

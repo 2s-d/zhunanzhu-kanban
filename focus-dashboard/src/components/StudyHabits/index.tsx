@@ -3,12 +3,14 @@ import { Card, Row, Col, Statistic } from 'antd';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { calculateAverageSessionDuration, formatDuration } from '../../utils/dataProcessor';
+import { useChartHeight } from '../../hooks/use-mobile';
 import ReactECharts from 'echarts-for-react';
 import dayjs from 'dayjs';
 
 const StudyHabits: React.FC = () => {
   const appData = useSelector((state: RootState) => state.appData.data);
   const avgSessionDuration = useMemo(() => calculateAverageSessionDuration(appData), [appData]);
+  const chartHeight = useChartHeight();
 
   // 学习会话时长分布
   const sessionDistribution = useMemo(() => {
@@ -375,12 +377,12 @@ const StudyHabits: React.FC = () => {
       <Row gutter={[16, 16]}>
         <Col xs={24} lg={12}>
           <Card>
-            <ReactECharts option={sessionDistributionOption} style={{ height: '400px' }} />
+            <ReactECharts option={sessionDistributionOption} style={{ height: chartHeight }} />
           </Card>
         </Col>
         <Col xs={24} lg={12}>
           <Card>
-            <ReactECharts option={restFrequencyOption} style={{ height: '400px' }} />
+            <ReactECharts option={restFrequencyOption} style={{ height: chartHeight }} />
           </Card>
         </Col>
       </Row>
@@ -388,12 +390,12 @@ const StudyHabits: React.FC = () => {
       <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
         <Col xs={24} lg={12}>
           <Card>
-            <ReactECharts option={efficiencyRadarOption} style={{ height: '400px' }} />
+            <ReactECharts option={efficiencyRadarOption} style={{ height: chartHeight }} />
           </Card>
         </Col>
         <Col xs={24} lg={12}>
           <Card>
-            <ReactECharts option={weeklyHeatmapOption} style={{ height: '400px' }} />
+            <ReactECharts option={weeklyHeatmapOption} style={{ height: chartHeight }} />
           </Card>
         </Col>
       </Row>

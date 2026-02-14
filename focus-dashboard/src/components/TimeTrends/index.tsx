@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { setTimeRange } from '../../store/appDataSlice';
 import { extractTimeTrendData, analyzeStudyPeriodDistribution, formatDuration } from '../../utils/dataProcessor';
+import { useChartHeight } from '../../hooks/use-mobile';
 import ReactECharts from 'echarts-for-react';
 import dayjs from 'dayjs';
 
@@ -11,6 +12,7 @@ const TimeTrends: React.FC = () => {
   const dispatch = useDispatch();
   const appData = useSelector((state: RootState) => state.appData.data);
   const timeRange = useSelector((state: RootState) => state.appData.timeRange);
+  const chartHeight = useChartHeight();
 
   const trendData = useMemo(() => extractTimeTrendData(appData, timeRange), [appData, timeRange]);
   const periodData = useMemo(() => analyzeStudyPeriodDistribution(appData), [appData]);
@@ -214,12 +216,12 @@ const TimeTrends: React.FC = () => {
       <Row gutter={[16, 16]}>
         <Col xs={24} lg={12}>
           <Card>
-            <ReactECharts option={dailyTrendOption} style={{ height: '400px' }} />
+            <ReactECharts option={dailyTrendOption} style={{ height: chartHeight }} />
           </Card>
         </Col>
         <Col xs={24} lg={12}>
           <Card>
-            <ReactECharts option={pointsTrendOption} style={{ height: '400px' }} />
+            <ReactECharts option={pointsTrendOption} style={{ height: chartHeight }} />
           </Card>
         </Col>
       </Row>
@@ -227,12 +229,12 @@ const TimeTrends: React.FC = () => {
       <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
         <Col xs={24} lg={12}>
           <Card>
-            <ReactECharts option={weeklyChartOption} style={{ height: '400px' }} />
+            <ReactECharts option={weeklyChartOption} style={{ height: chartHeight }} />
           </Card>
         </Col>
         <Col xs={24} lg={12}>
           <Card>
-            <ReactECharts option={periodDistributionOption} style={{ height: '400px' }} />
+            <ReactECharts option={periodDistributionOption} style={{ height: chartHeight }} />
           </Card>
         </Col>
       </Row>

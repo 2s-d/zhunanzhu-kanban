@@ -16,6 +16,7 @@ import TimeTrends from './components/TimeTrends';
 import RewardAnalysis from './components/RewardAnalysis';
 import StudyHabits from './components/StudyHabits';
 import './App.css';
+import './App.mobile.css';
 
 const { Header, Content } = Layout;
 

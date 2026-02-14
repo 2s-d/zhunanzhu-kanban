@@ -4,6 +4,7 @@ import type { ColumnsType } from 'antd/es/table';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { extractProjectStats, formatDuration, formatPoints } from '../../utils/dataProcessor';
+import { useChartHeight } from '../../hooks/use-mobile';
 import { ProjectStats } from '../../types';
 import ReactECharts from 'echarts-for-react';
 import dayjs from 'dayjs';
@@ -11,6 +12,7 @@ import dayjs from 'dayjs';
 const ProjectAnalysis: React.FC = () => {
   const appData = useSelector((state: RootState) => state.appData.data);
   const projectStats = useMemo(() => extractProjectStats(appData), [appData]);
+  const chartHeight = useChartHeight();
 
   // 表格列定义
   const columns: ColumnsType<ProjectStats> = [
@@ -183,11 +185,11 @@ const ProjectAnalysis: React.FC = () => {
       </Card>
 
       <Card style={{ marginBottom: 16 }}>
-        <ReactECharts option={studyTimeChartOption} style={{ height: '400px' }} />
+        <ReactECharts option={studyTimeChartOption} style={{ height: chartHeight }} />
       </Card>
 
       <Card>
-        <ReactECharts option={pointsChartOption} style={{ height: '400px' }} />
+        <ReactECharts option={pointsChartOption} style={{ height: chartHeight }} />
       </Card>
     </div>
   );
