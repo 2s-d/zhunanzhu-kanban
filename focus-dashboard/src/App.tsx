@@ -204,14 +204,17 @@ const DashboardContent: React.FC = () => {
           </div>
           <Space>
             {/* 在线获取按钮 - 分栏设计：左边获取信息，右边刷新 */}
-            <div style={{ display: 'flex', alignItems: 'center', background: '#1890ff', borderRadius: '6px', overflow: 'hidden', cursor: 'pointer' }}>
+            <div style={{ display: 'flex', alignItems: 'center', background: '#1890ff', borderRadius: '6px', overflow: 'hidden', cursor: 'pointer', height: '28px' }}>
               {/* 左侧：获取信息 - 触发API获取 */}
               <div 
                 style={{ 
-                  padding: '4px 12px', 
+                  padding: '2px 12px', 
                   color: 'white', 
                   fontSize: '14px',
-                  borderRight: '1px solid rgba(255,255,255,0.3)'
+                  borderRight: '1px solid rgba(255,255,255,0.3)',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center'
                 }}
                 onClick={() => setOnlineModalOpen(true)}
               >
@@ -220,11 +223,12 @@ const DashboardContent: React.FC = () => {
               {/* 右侧：刷新图标 - 重新加载数据 */}
               <div 
                 style={{ 
-                  padding: '4px 8px', 
+                  padding: '2px 8px', 
                   color: 'white',
                   fontSize: '14px',
                   display: 'flex',
-                  alignItems: 'center'
+                  alignItems: 'center',
+                  height: '100%'
                 }}
                 onClick={() => {
                   // 刷新当前数据（重新加载示例数据）
