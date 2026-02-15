@@ -1,0 +1,95 @@
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+root@shangnantea-c:~# pm2 status
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ portfolio-cms      │ fork     │ 6    │ online    │ 0%       │ 25.2mb   │
+│ 1  │ zhuanzhu-server    │ fork     │ 15   │ errored   │ 0%       │ 0b       │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+root@shangnantea-c:~# pm2 logs
+[TAILING] Tailing last 15 lines for [all] processes (change the value with --lines option)
+/root/.pm2/pm2.log last 15 lines:
+PM2        | 2026-02-15T16:47:06: PM2 log: App [zhuanzhu-server:1] online
+PM2        | 2026-02-15T16:47:06: PM2 log: App [zhuanzhu-server:1] exited with code [1] via signal [SIGINT]
+PM2        | 2026-02-15T16:47:06: PM2 log: App [zhuanzhu-server:1] starting in -fork mode-
+PM2        | 2026-02-15T16:47:06: PM2 log: App [zhuanzhu-server:1] online
+PM2        | 2026-02-15T16:47:07: PM2 log: App [zhuanzhu-server:1] exited with code [1] via signal [SIGINT]
+PM2        | 2026-02-15T16:47:07: PM2 log: App [zhuanzhu-server:1] starting in -fork mode-
+PM2        | 2026-02-15T16:47:07: PM2 log: App [zhuanzhu-server:1] online
+PM2        | 2026-02-15T16:47:07: PM2 log: App [zhuanzhu-server:1] exited with code [1] via signal [SIGINT]
+PM2        | 2026-02-15T16:47:07: PM2 log: App [zhuanzhu-server:1] starting in -fork mode-
+PM2        | 2026-02-15T16:47:07: PM2 log: App [zhuanzhu-server:1] online
+PM2        | 2026-02-15T16:47:08: PM2 log: App [zhuanzhu-server:1] exited with code [1] via signal [SIGINT]
+PM2        | 2026-02-15T16:47:08: PM2 log: App [zhuanzhu-server:1] starting in -fork mode-
+PM2        | 2026-02-15T16:47:08: PM2 log: App [zhuanzhu-server:1] online
+PM2        | 2026-02-15T16:47:08: PM2 log: App [zhuanzhu-server:1] exited with code [1] via signal [SIGINT]
+PM2        | 2026-02-15T16:47:08: PM2 log: Script /var/www/zhuanzhu-server/server.js had too many unstable restarts (16). Stopped. "errored"
+
+/root/.pm2/logs/portfolio-cms-error.log last 15 lines:
+0|portfoli |
+0|portfoli |   Error: ENOENT: no such file or directory, open '/var/www/portfolio/cms/node_modules/@strapi/admin/dist/server/server/build/index.html'
+0|portfoli |
+0|portfoli |
+0|portfoli |   Error: ENOENT: no such file or directory, open '/var/www/portfolio/cms/node_modules/@strapi/admin/dist/server/server/build/index.html'
+0|portfoli |
+0|portfoli |
+0|portfoli |   Error: ENOENT: no such file or directory, open '/var/www/portfolio/cms/node_modules/@strapi/admin/dist/server/server/build/index.html'
+0|portfoli |
+0|portfoli | Segmentation fault (core dumped)
+0|portfoli | Segmentation fault (core dumped)
+0|portfoli | Segmentation fault (core dumped)
+0|portfoli | Segmentation fault (core dumped)
+0|portfoli | Segmentation fault (core dumped)
+0|portfoli | Segmentation fault (core dumped)
+
+/root/.pm2/logs/zhuanzhu-server-out.log last 15 lines:
+1|zhuanzhu | ========================================
+1|zhuanzhu |
+1|zhuanzhu | 📱 WebSocket服务器已启动: ws://0.0.0.0:8080
+1|zhuanzhu |
+1|zhuanzhu | ========================================
+1|zhuanzhu |    专注APP数据中转服务器 - 启动完成
+1|zhuanzhu | ========================================
+1|zhuanzhu | HTTP服务器: http://0.0.0.0:3007
+1|zhuanzhu | WebSocket: ws://0.0.0.0:8080
+1|zhuanzhu |
+1|zhuanzhu | 访问地址:
+1|zhuanzhu |   - HTTP: http://108.160.131.86:3007
+1|zhuanzhu |   - WS:   ws://108.160.131.86:8080
+1|zhuanzhu | ========================================
+1|zhuanzhu |
+
+/root/.pm2/logs/zhuanzhu-server-error.log last 15 lines:
+1|zhuanzhu |     at listenInCluster (node:net:1865:12)
+1|zhuanzhu |     at Server.listen (node:net:1953:7)
+1|zhuanzhu |     at Function.listen (/var/www/zhuanzhu-server/node_modules/express/lib/application.js:635:24)
+1|zhuanzhu |     at Object.<anonymous> (/var/www/zhuanzhu-server/server.js:116:24)
+1|zhuanzhu |     at Module._compile (node:internal/modules/cjs/loader:1364:14)
+1|zhuanzhu |     at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)
+1|zhuanzhu |     at Module.load (node:internal/modules/cjs/loader:1203:32)
+1|zhuanzhu |     at Module._load (node:internal/modules/cjs/loader:1019:12)
+1|zhuanzhu |     at Object.<anonymous> (/usr/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23) {
+1|zhuanzhu |   code: 'EADDRINUSE',
+1|zhuanzhu |   errno: -98,
+1|zhuanzhu |   syscall: 'listen',
+1|zhuanzhu |   address: '::',
+1|zhuanzhu |   port: 3007
+1|zhuanzhu | }
+
+/root/.pm2/logs/portfolio-cms-out.log last 15 lines:
+0|portfoli | [2026-02-15 23:10:48.448] http: GET /upload/settings (25 ms) 200
+0|portfoli | [2026-02-15 23:10:55.644] http: GET /admin (6 ms) 200
+0|portfoli | [2026-02-15 23:10:55.960] http: GET /admin/strapi-CcHvpOJ2.js (2 ms) 200
+0|portfoli | [2026-02-15 23:10:59.314] http: GET /admin/project-type (2 ms) 200
+0|portfoli | [2026-02-15 23:10:59.824] http: GET /favicon.ico (1 ms) 200
+0|portfoli | [2026-02-15 23:11:00.145] http: GET /admin/en-GB-C8SI_WDh.js (1 ms) 200
+0|portfoli | [2026-02-15 23:11:15.430] http: GET /upload/files?sort=createdAt:DESC&page=1&pageSize=10&filters[$and][0][folderPath][$eq]=/ (43 ms) 200
+0|portfoli | [2026-02-15 23:11:15.618] http: GET /upload/folders?sort=createdAt:DESC&page=1&pageSize=10&pagination[pageSize]=-1&filters[$and][0][parent][id][$null]=true (45 ms) 200
+0|portfoli | [2026-02-15 23:11:15.793] http: GET /upload/settings (30 ms) 200
+0|portfoli | [2026-02-15 23:11:17.473] http: GET /content-manager/init (31 ms) 200
+0|portfoli | [2026-02-15 23:11:17.513] http: GET /content-manager/preview/url/api::profile.profile?locale=&status=published (32 ms) 404
+0|portfoli | [2026-02-15 23:11:17.545] http: GET /content-manager/single-types/api::profile.profile/actions/countDraftRelations? (29 ms) 200
+0|portfoli | [2026-02-15 23:12:29.287] http: GET /api/profile (7 ms) 200
+0|portfoli | [2026-02-15 23:12:29.446] http: GET /api/skills?sort=order:asc (21 ms) 200
+0|portfoli | [2026-02-15 23:12:29.585] http: GET /api/projects?sort=order:asc (15 ms) 200
+
