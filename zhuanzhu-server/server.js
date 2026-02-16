@@ -3,23 +3,19 @@
  * 
  * 全部通过WebSocket通信，不需要HTTP接口
  * 
- * 新增功能：
+ * 功能：
  * 1. 持久化存储 - 数据存入JSON文件，APP不在线也能获取
  * 2. 前端订阅 - 前端通过WebSocket订阅，数据变化实时推送
  * 3. APP推送 - APP数据变化主动推送到服务器
  * 4. 数据清理 - 定时清理7天前的旧数据
  */
 
-const express = require('express');
-const cors = require('cors');
 const { WebSocketServer } = require('ws');
-const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
 // ==================== 配置 ====================
-const HTTP_PORT = 3007;      // 保留端口但不用，仅为健康检查
-const WS_PORT = 8080;        // WebSocket端口
+const WS_PORT = 8080;              // WebSocket端口（手机和前端连接）
 const DB_FILE = path.join(__dirname, 'data.json'); // 数据存储文件
 
 // ==================== 数据存储 ====================
@@ -71,7 +67,7 @@ function getData(phone) {
 // 清理旧数据（删除7天前的）
 function cleanupOldData() {
   const now = Date.now();
-  const maxAge = 7 * 24 * 60 * 60 * 1000;
+  const maxAge = 7 * 24 * 60 * 60 * 1000; // 7天
   
   let deletedCount = 0;
   for (const phone in dataCache) {
@@ -89,28 +85,8 @@ function cleanupOldData() {
   }
 }
 
-// 每天凌晨3点清理
+// 每天凌晨清理
 setInterval(cleanupOldData, 24 * 60 * 60 * 1000);
-
-// ==================== 简单的HTTP服务器（仅状态检查） ====================
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.json({
-    status: 'ok',
-    message: '专注APP数据中转服务器运行中',
-    connections: connections.size,
-    subscriptions: subscriptions.size,
-    hasData: Object.keys(dataCache).length
-  });
-});
-
-// 创建HTTP服务器（保留端口）
-const httpServer = app.listen(HTTP_PORT, () => {
-  console.log(`HTTP服务器已启动: http://0.0.0.0:${HTTP_PORT} (仅用于状态检查)`);
-});
 
 // ==================== WebSocket服务器 ====================
 const wss = new WebSocketServer({ port: WS_PORT });
@@ -121,7 +97,7 @@ wss.on('connection', (ws, req) => {
   console.log('收到新的WebSocket连接');
   
   let deviceInfo = null;
-  let isApp = false;
+  let isApp = false; // true=APP(手机), false=前端(Dashboard)
   
   ws.on('message', (message) => {
     try {
@@ -276,7 +252,6 @@ function handlePhoneResponse(data) {
 process.on('SIGINT', () => {
   console.log('\n正在关闭服务器...');
   wss.clients.forEach(client => client.close());
-  httpServer.close(() => console.log('HTTP服务器已关闭'));
   wss.close(() => { console.log('WebSocket服务器已关闭'); process.exit(0); });
 });
 
@@ -284,10 +259,11 @@ console.log('\n========================================');
 console.log('   专注APP数据中转服务器 - 纯WebSocket版');
 console.log('========================================');
 console.log(`WebSocket: ws://0.0.0.0:${WS_PORT}`);
+console.log(`数据文件: ${DB_FILE}`);
 console.log('');
 console.log('新增功能:');
 console.log('  ✓ 持久化存储 - 数据存入JSON文件');
 console.log('  ✓ 前端订阅 - WebSocket订阅机制');
 console.log('  ✓ APP推送 - 数据变化主动推送');
-console.log('  ✓ 数据清理 - 每天凌晨清理7天前数据');
+console.log('  ✓ 数据清理 - 每天清理7天前数据');
 console.log('========================================\n');
