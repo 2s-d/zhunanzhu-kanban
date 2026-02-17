@@ -8,7 +8,7 @@ import zhCN from 'antd/locale/zh_CN';
 import { store, RootState } from './store';
 import { setAppData, setLoading, setError } from './store/appDataSlice';
 import { AppData } from './types';
-import { exportToExcel, exportToCSV, exportToPDF } from './utils/exportData';
+import { exportToExcel, exportToCSV, exportToJSON } from './utils/exportData';
 import { colorFromFlutterValue } from './utils/colorUtils';
 import GlobalOverview from './components/GlobalOverview';
 import ProjectAnalysis from './components/ProjectAnalysis';
@@ -67,11 +67,23 @@ const DashboardContent: React.FC = () => {
   const exportMenuItems: MenuProps['items'] = [
     {
       key: 'excel',
-      label: '导出为 Excel',
+      label: '导出为 Excel（推荐）',
       onClick: () => {
         try {
           exportToExcel(appData);
           message.success('Excel 文件导出成功');
+        } catch (error: any) {
+          message.error(error.message || '导出失败');
+        }
+      },
+    },
+    {
+      key: 'json',
+      label: '导出为 JSON（完整备份）',
+      onClick: () => {
+        try {
+          exportToJSON(appData);
+          message.success('JSON 文件导出成功');
         } catch (error: any) {
           message.error(error.message || '导出失败');
         }
@@ -84,18 +96,6 @@ const DashboardContent: React.FC = () => {
         try {
           exportToCSV(appData);
           message.success('CSV 文件导出成功');
-        } catch (error: any) {
-          message.error(error.message || '导出失败');
-        }
-      },
-    },
-    {
-      key: 'pdf',
-      label: '导出为 PDF',
-      onClick: () => {
-        try {
-          exportToPDF(appData);
-          message.success('PDF 文件导出成功');
         } catch (error: any) {
           message.error(error.message || '导出失败');
         }
@@ -257,11 +257,23 @@ const DashboardContent: React.FC = () => {
                 items: [
                   {
                     key: 'excel',
-                    label: '导出为 Excel',
+                    label: '导出为 Excel（推荐）',
                     onClick: () => {
                       try {
                         exportToExcel(appData);
                         message.success('Excel 文件导出成功');
+                      } catch (error: any) {
+                        message.error(error.message || '导出失败');
+                      }
+                    },
+                  },
+                  {
+                    key: 'json',
+                    label: '导出为 JSON（完整备份）',
+                    onClick: () => {
+                      try {
+                        exportToJSON(appData);
+                        message.success('JSON 文件导出成功');
                       } catch (error: any) {
                         message.error(error.message || '导出失败');
                       }
@@ -274,18 +286,6 @@ const DashboardContent: React.FC = () => {
                       try {
                         exportToCSV(appData);
                         message.success('CSV 文件导出成功');
-                      } catch (error: any) {
-                        message.error(error.message || '导出失败');
-                      }
-                    },
-                  },
-                  {
-                    key: 'pdf',
-                    label: '导出为 PDF',
-                    onClick: () => {
-                      try {
-                        exportToPDF(appData);
-                        message.success('PDF 文件导出成功');
                       } catch (error: any) {
                         message.error(error.message || '导出失败');
                       }
