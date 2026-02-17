@@ -897,6 +897,21 @@
 **/.minimax
 **/.expert
 
+# Browser screenshots and user data
+**/.browser_screenshots/
+**/browser/screenshots/
+**/browser/user_data/
+**/browser/browser_extension/
+**/browser/extracted_content/
+**/browser/global_browser.py
+
+# Temporary files and directories
+**/tmp/
+**/tmp
+**/user_input_files/
+**/memories/
+**/workspace.json
+
 # Claude Agent SDK debug files
 **/.claude/debug/
 **/.claude/debug/**
