@@ -40,6 +40,7 @@ export interface AppData {
   lastFortuneDate?: string;
   todayFortune?: DailyFortune;
   themeSeedColorValue?: number;
+  consecutiveCheckInDays?: number; // 连续签到天数（APP直接提供）
 }
 
 // 时间范围类型

@@ -14,7 +14,11 @@ export const calculateStatistics = (data: AppData | null): Statistics => {
   }
 
   const totalStudyMinutes = data.projects.reduce((sum, p) => sum + p.totalStudyMinutes, 0);
-  const consecutiveCheckInDays = calculateConsecutiveCheckInDays(data.lastCheckInDate);
+  
+  // 优先使用 App 直接提供的连续签到天数，否则使用计算值
+  const consecutiveCheckInDays = data.consecutiveCheckInDays !== undefined 
+    ? data.consecutiveCheckInDays 
+    : calculateConsecutiveCheckInDays(data.lastCheckInDate);
 
   // 计算平均每日学习时长
   const firstProjectDate = data.projects.length > 0
