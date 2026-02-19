@@ -1,0 +1,16 @@
+{
+  "name": "zhuanzhu-kanban",
+  "version": "1.0.0",
+  "description": "专注APP数据看板项目",
+  "private": true,
+  "scripts": {
+    "dev": "cd focus-dashboard && npm run dev",
+    "dev:pnpm": "cd focus-dashboard && pnpm dev",
+    "build": "cd focus-dashboard && npm run build",
+    "build:pnpm": "cd focus-dashboard && pnpm build",
+    "install": "cd focus-dashboard && npm install"
+  },
+  "workspaces": [
+    "focus-dashboard"
+  ]
+}

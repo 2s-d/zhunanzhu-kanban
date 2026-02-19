@@ -18,5 +18,11 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    port: 3007,
+    strictPort: true,
+    host: true, // 允许外部访问
+    open: false, // 不自动打开浏览器
+  },
 })
 

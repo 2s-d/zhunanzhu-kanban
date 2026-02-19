@@ -195,16 +195,39 @@ const DashboardContent: React.FC = () => {
       }}
     >
       <Layout style={{ minHeight: '100vh' }}>
-        <Header style={{ background: '#001529', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <Header
+          className="dashboard-header"
+          style={{
+            background: '#001529',
+            padding: '0 24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div
+            className="dashboard-header-left"
+            style={{ display: 'flex', alignItems: 'center', gap: '12px' }}
+          >
             <BookOutlined style={{ color: '#fff', fontSize: '24px' }} />
             <span style={{ color: '#fff', fontSize: '20px', fontWeight: 'bold' }}>
               专注APP数据看板
             </span>
           </div>
-          <Space>
+          <Space className="dashboard-header-actions">
             {/* 在线获取按钮 - 分栏设计：左边获取信息，右边刷新 */}
-            <div style={{ display: 'flex', alignItems: 'center', background: '#1890ff', borderRadius: '6px', overflow: 'hidden', cursor: 'pointer', height: '28px' }}>
+            <div
+              className="dashboard-online-btn"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                background: '#1890ff',
+                borderRadius: '6px',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                height: '28px',
+              }}
+            >
               {/* 左侧：获取信息 - 触发API获取 */}
               <div 
                 style={{ 

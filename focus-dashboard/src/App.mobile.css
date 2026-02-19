@@ -3,12 +3,12 @@
 @media screen and (max-width: 767px) {
   /* ===== Header 移动端适配 ===== */
   .ant-layout-header {
-    padding: 0 12px !important;
-    height: 56px !important;
+    padding: 8px 12px !important;
+    min-height: 56px !important;
     display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    justify-content: space-between !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
   }
 
   .ant-layout-header > div:first-child {
@@ -21,24 +21,22 @@
   }
 
   /* Header 按钮容器 */
-  .ant-layout-header .ant-space {
+  .dashboard-header-actions {
+    width: 100%;
+    margin-top: 6px;
     flex-wrap: wrap !important;
-    gap: 4px !important;
+    gap: 6px !important;
+    justify-content: space-between !important;
   }
 
-  .ant-layout-header .ant-btn {
-    padding: 4px 8px !important;
-    font-size: 12px !important;
-    height: 32px !important;
+  .dashboard-header-actions > * {
+    flex: 1 1 100%;
   }
 
-  .ant-layout-header .ant-btn span:not(.anticon) {
-    display: none !important;
-  }
-
-  .ant-layout-header .ant-btn .anticon {
-    font-size: 16px !important;
-    margin: 0 !important;
+  /* 在线获取按钮占一整行，内部元素居中 */
+  .dashboard-online-btn {
+    width: 100%;
+    justify-content: space-between;
   }
 
   /* ===== Content 移动端适配 ===== */
