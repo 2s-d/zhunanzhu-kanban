@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Form, Input, Button, message, Space } from 'antd';
 import { CloudDownloadOutlined, CheckCircleOutlined, WifiOutlined } from '@ant-design/icons';
-import { connect, disconnect, onMessage, onClose } from '../../utils/onlineData';
+import { connect, disconnect, onMessage, onClose, onStatus } from '../../utils/onlineData';
 import { AppData } from '../../types';
 
 interface OnlineGetModalProps {
@@ -14,6 +14,7 @@ const OnlineGetModal: React.FC<OnlineGetModalProps> = ({ open, onOpenChange, onS
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [connected, setConnected] = useState(false);
+  const [statusText, setStatusText] = useState<string>('');
 
   // 监听WebSocket关闭事件
   React.useEffect(() => {
@@ -22,6 +23,22 @@ const OnlineGetModal: React.FC<OnlineGetModalProps> = ({ open, onOpenChange, onS
       onClose(() => {
         setConnected(false);
         message.warning('连接已断开');
+      });
+
+      onStatus((status, info) => {
+        if (status === 'connected') {
+          setStatusText('已连接（将自动接收实时数据）');
+          setConnected(true);
+          return;
+        }
+        if (status === 'reconnecting') {
+          const attempt = info?.attempt ? `第${info.attempt}次` : '';
+          setStatusText(`连接中断，正在重连${attempt ? `（${attempt}）` : ''}...`);
+          return;
+        }
+        // disconnected
+        setStatusText(info?.reason ? `已断开：${info.reason}` : '已断开');
+        setConnected(false);
       });
     }
   }, [open]);
@@ -32,6 +49,7 @@ const OnlineGetModal: React.FC<OnlineGetModalProps> = ({ open, onOpenChange, onS
     try {
       // 断开之前的连接
       disconnect();
+      setStatusText('');
 
       // 连接WebSocket并订阅
       const result = await connect(values.phone, values.key);
@@ -67,6 +85,7 @@ const OnlineGetModal: React.FC<OnlineGetModalProps> = ({ open, onOpenChange, onS
   const handleDisconnect = () => {
     disconnect();
     setConnected(false);
+    setStatusText('已断开');
     message.info('已断开连接');
   };
 
@@ -93,6 +112,11 @@ const OnlineGetModal: React.FC<OnlineGetModalProps> = ({ open, onOpenChange, onS
         layout="vertical"
         onFinish={handleSubmit}
       >
+        {statusText ? (
+          <div style={{ marginBottom: 8, fontSize: 12, color: '#666' }}>
+            {statusText}
+          </div>
+        ) : null}
         <Form.Item
           label="手机号"
           name="phone"
