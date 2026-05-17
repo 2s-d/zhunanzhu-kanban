@@ -23,7 +23,7 @@ jobs:
       
       - name: Install dependencies
         working-directory: ./focus-dashboard
-        run: npm ci --prefer-offline --no-audit
+        run: npm install --no-audit
       
       - name: Build frontend
         working-directory: ./focus-dashboard
