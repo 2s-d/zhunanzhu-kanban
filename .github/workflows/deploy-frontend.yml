@@ -1,0 +1,61 @@
+name: Deploy Focus Kanban Frontend to Server
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'focus-dashboard/**'
+      - '.github/workflows/deploy-frontend.yml'
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        working-directory: ./focus-dashboard
+        run: npm install
+      
+      - name: Build frontend
+        working-directory: ./focus-dashboard
+        run: npm run build
+        env:
+          NODE_ENV: production
+      
+      - name: Pack frontend dist (flat for web root)
+        run: cd focus-dashboard/dist && tar czf ../../kanban-frontend-dist.tar.gz .
+      
+      - name: Deploy frontend tarball to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          port: ${{ secrets.SERVER_SSH_PORT }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: "kanban-frontend-dist.tar.gz"
+          target: "/var/www/kanban/"
+          overwrite: true
+      
+      - name: Extract frontend on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          port: ${{ secrets.SERVER_SSH_PORT }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          command_timeout: 5m
+          script: |
+            set -e
+            cd /var/www/kanban
+            tar xzf kanban-frontend-dist.tar.gz
+            rm -f kanban-frontend-dist.tar.gz
+            echo "✅ 专注大数据看板前端部署完成: $(date)"
