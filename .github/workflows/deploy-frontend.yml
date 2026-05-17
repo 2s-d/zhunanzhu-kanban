@@ -21,15 +21,18 @@ jobs:
         with:
           node-version: '18'
       
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      
       - name: Install dependencies
         working-directory: ./focus-dashboard
-        run: npm install --no-audit --maxsockets=1
-        env:
-          NODE_OPTIONS: --max_old_space_size=4096
+        run: pnpm install --frozen-lockfile
       
       - name: Build frontend
         working-directory: ./focus-dashboard
-        run: npm run build
+        run: pnpm run build
         env:
           NODE_ENV: production
       
