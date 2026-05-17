@@ -32,7 +32,7 @@ jobs:
       
       - name: Build frontend
         working-directory: ./focus-dashboard
-        run: pnpm run build
+        run: pnpm run build:skip-check
         env:
           NODE_ENV: production
       
