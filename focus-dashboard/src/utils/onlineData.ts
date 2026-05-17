@@ -1,6 +1,20 @@
 // 在线获取数据 - WebSocket版（支持自动重连/重订阅）
+// 统一使用相对路径 /ws，由前端 dev-server 或线上 Nginx 代理到真正的 WebSocket 服务器。
 
-const WS_URL = 'ws://108.160.131.86:8080';
+const WS_PATH = '/ws';
+
+function getWsUrl(): string {
+  // 在浏览器环境下，根据当前页面协议/主机构造 ws(s)://<host>/ws
+  if (typeof window !== 'undefined') {
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const host = window.location.host; // e.g. localhost:3007 或 kanban.paku.uno
+    return `${protocol}//${host}${WS_PATH}`;
+  }
+  // 非浏览器环境兜底（基本不会用到）
+  return `ws://localhost:3007${WS_PATH}`;
+}
+
+const WS_URL = getWsUrl();
 
 type Status = 'connected' | 'disconnected' | 'reconnecting';
 type StatusCallback = (status: Status, info?: { attempt?: number; reason?: string }) => void;

@@ -23,6 +23,15 @@ export default defineConfig({
     strictPort: true,
     host: true, // 允许外部访问
     open: false, // 不自动打开浏览器
+    // 本地开发代理：将 /ws 转发到中转服务器的 WebSocket 端口
+    // 这样前端代码里只需要使用相对路径 ws(s)://<host>/ws
+    proxy: {
+      "/ws": {
+        target: "ws://108.160.131.86:8080",
+        ws: true,
+        changeOrigin: true,
+      },
+    },
   },
 })
 

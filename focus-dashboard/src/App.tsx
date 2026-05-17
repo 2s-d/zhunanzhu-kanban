@@ -10,6 +10,7 @@ import { setAppData, setLoading, setError } from './store/appDataSlice';
 import { AppData } from './types';
 import { exportToExcel, exportToCSV, exportToJSON } from './utils/exportData';
 import { colorFromFlutterValue } from './utils/colorUtils';
+import { localSampleAppData } from './utils/localSampleData';
 import GlobalOverview from './components/GlobalOverview';
 import ProjectAnalysis from './components/ProjectAnalysis';
 import TimeTrends from './components/TimeTrends';
@@ -28,32 +29,24 @@ const DashboardContent: React.FC = () => {
   const [themeColor, setThemeColor] = useState('#1890ff');
   const [onlineModalOpen, setOnlineModalOpen] = useState(false);
 
+  // 统一的“加载示例数据”函数：只在点击“一键填充/刷新测试数据”时触发
+  const loadSampleData = (opts?: { fromRefresh?: boolean }) => {
+    dispatch(setLoading(true));
+    // 使用深拷贝，避免某些组件意外修改示例数据对象导致后续填充不一致
+    const cloned: AppData =
+      typeof structuredClone === 'function'
+        ? structuredClone(localSampleAppData)
+        : JSON.parse(JSON.stringify(localSampleAppData));
+    dispatch(setAppData(cloned));
+    dispatch(setLoading(false));
+    message.success(opts?.fromRefresh ? '测试数据已刷新' : '测试数据已填充');
+  };
+
   // 处理在线获取数据成功
   const handleOnlineSuccess = (data: AppData) => {
     dispatch(setAppData(data));
     message.success('在线数据获取成功！');
   };
-
-  // 加载示例数据
-  useEffect(() => {
-    const loadSampleData = async () => {
-      try {
-        dispatch(setLoading(true));
-        const response = await fetch('/data/sample_app_data.json');
-        if (!response.ok) {
-          throw new Error('Failed to load sample data');
-        }
-        const data: AppData = await response.json();
-        dispatch(setAppData(data));
-        message.success('示例数据加载成功');
-      } catch (error) {
-        console.error('Error loading sample data:', error);
-        dispatch(setError('示例数据加载失败，请上传您的app_data.json文件'));
-      }
-    };
-
-    loadSampleData();
-  }, [dispatch]);
 
   // 根据Flutter的themeSeedColorValue更新主题色
   useEffect(() => {
@@ -214,7 +207,14 @@ const DashboardContent: React.FC = () => {
               专注APP数据看板
             </span>
           </div>
-          <Space className="dashboard-header-actions">
+            <Space className="dashboard-header-actions">
+              {/* 一键填充本地测试数据（不依赖在线推送） */}
+              <Button
+                icon={<CloudDownloadOutlined />}
+                onClick={() => loadSampleData()}
+              >
+                测试数据一键填充
+              </Button>
             {/* 在线获取按钮 - 分栏设计：左边获取信息，右边刷新 */}
             <div
               className="dashboard-online-btn"
@@ -255,16 +255,7 @@ const DashboardContent: React.FC = () => {
                 }}
                 onClick={() => {
                   // 刷新当前数据（重新加载示例数据）
-                  dispatch(setLoading(true));
-                  fetch('/data/sample_app_data.json')
-                    .then(res => res.json())
-                    .then(data => {
-                      dispatch(setAppData(data));
-                      message.success('数据已刷新');
-                    })
-                    .catch(() => {
-                      message.error('刷新失败');
-                    });
+                  loadSampleData({ fromRefresh: true });
                 }}
               >
                 <SyncOutlined spin={false} />
